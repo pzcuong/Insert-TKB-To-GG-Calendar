@@ -5,7 +5,7 @@ const app = express();
 
 app.get('/', async(req, res) => {
   let data = await ThemTKB();
-  res.send(data);
+  res.send("OK", data);
 });
 
 async function ThemTKB() {
