@@ -108,11 +108,20 @@ async function XuLyTKB() {
             let TietDau = data.tiet[0];
             let TietCuoi = data.tiet[data.tiet.length - 1];
 
-            if (ThuTheoUIT != ThuHomNay) 
-                continue;
-            
             var KQThemMH = [];
 
+            if (ThuTheoUIT != ThuHomNay) {
+                var message = {
+                    statusCode: 400,
+                    message: 'Môn học đã tồn tại'
+                };
+
+                KQThemMH.push(message);
+                DataReturn[data.malop] = KQThemMH;
+
+                continue;
+            }
+            
             let TgianBD = await TinhThoiGianHoc(TietDau, 'BatDau');
             let TgianKT = await TinhThoiGianHoc(TietCuoi, 'KetThuc');
 
@@ -134,8 +143,6 @@ async function XuLyTKB() {
                 };
                 KQThemMH.push(message);
             }
-
-            DataReturn[data.malop] = KQThemMH;
         }
     }
     return DataReturn;

@@ -4,8 +4,8 @@ const xuly = require('./sources/process/xuly');
 const app = express();
 
 app.get('/', async(req, res) => {
-  let data = await ThemTKB();
-  res.send("OK", data);
+  let data = await xuly.XuLyTKB();
+  res.status(200).json(data);
 });
 
 async function ThemTKB() {
