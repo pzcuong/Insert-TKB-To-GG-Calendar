@@ -1,11 +1,13 @@
 const express = require('express');
 const xuly = require('./sources/process/xuly');
+var json2html = require('json2html')
 
 const app = express();
 
 app.get('/', async(req, res) => {
   let data = await xuly.XuLyTKB();
-  res.status(200).json(data);
+  res.end(json2html.render(data));
+  //res.status(200).json(data);
 });
 
 async function ThemTKB() {
