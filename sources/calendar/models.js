@@ -23,30 +23,38 @@ async function insertEvent(summary, description, start, end) {
     });
 };
 
-async function searchEvents(DataSeach, TimeMin, TimeMax) {
-    let data = await authGoogle.calendar.events.list({
-        calendarId: 'primary',
-        q: DataSeach,
-        singleEvents: false,
-        showDeleted: false,
-        timeMin: TimeMin,
-        timeMax: TimeMax,
-    });
+async function searchEvents(DataSearch, TimeMin, TimeMax) {
+    try {
+        let data = await authGoogle.calendar.events.list({
+            calendarId: 'primary',
+            q: DataSearch,
+            singleEvents: false,
+            showDeleted: false,
+            timeMin: TimeMin,
+            timeMax: TimeMax,
+        });
 
-    data = data.data.items;
+        data = data.data.items;
 
-    if(data.length > 0) 
+        if(data.length > 0) 
+            return ({
+                statusCode: 200,
+                timeStart: data[0].start.dateTime || data[0].start.date,
+                timeEnd: data[0].end.dateTime || data[0].end.date,
+                summary: data[0].summary,
+                description: data[0].description
+            })
         return ({
-            statusCode: 200,
-            timeStart: data[0].start.dateTime || data[0].start.date,
-            timeEnd: data[0].end.dateTime || data[0].end.date,
-            summary: data[0].summary,
-            description: data[0].description
+            statusCode: 404,
+            message: 'Không tìm thấy dữ liệu'
         })
-    return ({
-        statusCode: 404,
-        message: 'Không tìm thấy dữ liệu'
-    })
+    } catch (error) {
+        console.log(error);
+        return ({
+            statusCode: 500,
+            message: 'Lỗi server'
+        })
+    }
 }
 
 exports.searchEvents = searchEvents;

@@ -101,6 +101,8 @@ async function XuLyTKB() {
         for(let index2=0; index2<result.courses[index].course.length; index2++) {
             let ThuTheoUIT = result.courses[index].name; //ThuTheoUIT la ten cua thu trong UIT
             let data = result.courses[index].course[index2];
+            if(index2+1 < result.courses[index].course.length && data.malop == result.courses[index].course[index2+1].malop) 
+                continue;
 
             let ThuHomNay = new Date();
             ThuHomNay = ThuHomNay.getDay() + 1;
@@ -123,12 +125,16 @@ async function XuLyTKB() {
             }
             
             let TgianBD = await TinhThoiGianHoc(TietDau, 'BatDau');
+            TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
+            TgianBD = new Date(TgianBD);
             let TgianKT = await TinhThoiGianHoc(TietCuoi, 'KetThuc');
+            TgianKT = TgianKT.setHours(TgianKT.getHours() - 7);
+            TgianKT = new Date(TgianKT);
 
             let TimMonHoc = await modelsGoogle.searchEvents(data.malop, TgianBD);
             console.log(TimMonHoc);
             
-            if(TimMonHoc.statusCode == 404) {
+            if(TimMonHoc.statusCode == 404 ) {
                 modelsGoogle.insertEvent(`Môn: ${data.malop} - phòng: ${data.phonghoc}`, data.tenmon, TgianBD, TgianKT);
                 var message = {
                     statusCode: 200,
