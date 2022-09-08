@@ -142,11 +142,11 @@ async function XuLyTKB() {
             if(ThuHomNay-1 == ThuTheoUIT) {
                 TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
                 TgianBD = new Date(TgianBD);
-                TgianBD = TgianBD.setDate(TgianBD.getDate() - 2);
+                TgianBD = TgianBD.setDate(TgianBD.getDate() - 1);
                 TgianBD = new Date(TgianBD);
                 TgianKT = TgianKT.setHours(TgianKT.getHours() - 7);
                 TgianKT = new Date(TgianKT);
-                TgianKT = TgianKT.setDate(TgianKT.getDate() - 2);
+                TgianKT = TgianKT.setDate(TgianKT.getDate() - 1);
                 TgianKT = new Date(TgianKT);
             } else {
                 TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
