@@ -105,7 +105,9 @@ async function XuLyTKB() {
                 continue;
 
             let ThuHomNay = new Date();
+            DataReturn["ThoiGianHeThong"] = ThuHomNay;
             ThuHomNay = ThuHomNay.getDay() + 1;
+            DataReturn["ThuHomNay"] = ThuHomNay;
 
             let TietDau = data.tiet[0];
             let TietCuoi = data.tiet[data.tiet.length - 1];
