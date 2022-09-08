@@ -107,6 +107,10 @@ async function XuLyTKB() {
             let ThuHomNay = new Date();
             DataReturn["ThoiGianHeThong"] = ThuHomNay;
             ThuHomNay = ThuHomNay.getDay() + 1;
+            if(ThuHomNay == 0) 
+                ThuHomNay = ThuHomNay;
+            else
+                ThuHomNay = ThuHomNay + 1;
             DataReturn["ThuHomNay"] = ThuHomNay;
 
             let TietDau = data.tiet[0];
@@ -114,7 +118,7 @@ async function XuLyTKB() {
 
             var KQThemMH = [];
 
-            if (ThuTheoUIT != ThuHomNay) {
+            if (ThuTheoUIT != ThuHomNay && ThuHomNay-1 != ThuTheoUIT) {
                 // var message = {
                 //     statusCode: 400,
                 //     message: 'Môn học đã tồn tại'
@@ -125,13 +129,28 @@ async function XuLyTKB() {
 
                 continue;
             }
-            
+
+            console.log(data)
+
             let TgianBD = await TinhThoiGianHoc(TietDau, 'BatDau');
-            TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
-            TgianBD = new Date(TgianBD);
             let TgianKT = await TinhThoiGianHoc(TietCuoi, 'KetThuc');
-            TgianKT = TgianKT.setHours(TgianKT.getHours() - 7);
-            TgianKT = new Date(TgianKT);
+
+            if(ThuHomNay-1 == ThuTheoUIT) {
+                TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
+                TgianBD = new Date(TgianBD);
+                TgianBD = TgianBD.setDate(TgianBD.getDate() - 1);
+                TgianBD = new Date(TgianBD);
+                TgianKT = TgianKT.setHours(TgianKT.getHours() - 7);
+                TgianKT = new Date(TgianKT);
+                TgianKT = TgianKT.setDate(TgianKT.getDate() - 1);
+                TgianKT = new Date(TgianKT);
+            } else {
+                TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
+                TgianBD = new Date(TgianBD);
+                TgianKT = TgianKT.setHours(TgianKT.getHours() - 7);
+                TgianKT = new Date(TgianKT);
+            }
+
 
             let TimMonHoc = await modelsGoogle.searchEvents(data.malop, TgianBD);
             console.log(TimMonHoc);
