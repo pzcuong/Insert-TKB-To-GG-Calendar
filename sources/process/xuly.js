@@ -113,13 +113,13 @@ async function XuLyTKB() {
             var KQThemMH = [];
 
             if (ThuTheoUIT != ThuHomNay) {
-                var message = {
-                    statusCode: 400,
-                    message: 'Môn học đã tồn tại'
-                };
+                // var message = {
+                //     statusCode: 400,
+                //     message: 'Môn học đã tồn tại'
+                // };
 
-                KQThemMH.push(message);
-                DataReturn[data.malop] = KQThemMH;
+                // KQThemMH.push(message);
+                // DataReturn[data.malop] = KQThemMH;
 
                 continue;
             }
@@ -135,12 +135,13 @@ async function XuLyTKB() {
             console.log(TimMonHoc);
             
             if(TimMonHoc.statusCode == 404 ) {
-                modelsGoogle.insertEvent(`Môn: ${data.malop} - phòng: ${data.phonghoc}`, data.tenmon, TgianBD, TgianKT);
+                modelsGoogle.insertEvent(`Môn: ${data.malop} - phòng: ${data.phonghoc}`, `GV: ${data.magv[0].hoten} - ${data.hinhthucgd}`, TgianBD, TgianKT);
                 var message = {
                     statusCode: 200,
                     message: 'Thêm môn học thành công'
                 };
                 KQThemMH.push(message);
+                DataReturn[data.malop] = KQThemMH;
             }
             else {
                 var message = {
@@ -148,6 +149,7 @@ async function XuLyTKB() {
                     message: 'Môn học đã tồn tại'
                 };
                 KQThemMH.push(message);
+                DataReturn[data.malop] = KQThemMH;
             }
         }
     }
