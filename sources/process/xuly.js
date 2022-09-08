@@ -133,16 +133,20 @@ async function XuLyTKB() {
             console.log(data)
 
             let TgianBD = await TinhThoiGianHoc(TietDau, 'BatDau');
+            TgianBD = TgianBD.setDate(TgianBD.getDate() + 1);
+            TgianBD = new Date(TgianBD);
             let TgianKT = await TinhThoiGianHoc(TietCuoi, 'KetThuc');
+            TgianKT = TgianKT.setDate(TgianKT.getDate() + 1);
+            TgianKT = new Date(TgianKT);
 
             if(ThuHomNay-1 == ThuTheoUIT) {
                 TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
                 TgianBD = new Date(TgianBD);
-                TgianBD = TgianBD.setDate(TgianBD.getDate() - 1);
+                TgianBD = TgianBD.setDate(TgianBD.getDate() + 1);
                 TgianBD = new Date(TgianBD);
                 TgianKT = TgianKT.setHours(TgianKT.getHours() - 7);
                 TgianKT = new Date(TgianKT);
-                TgianKT = TgianKT.setDate(TgianKT.getDate() - 1);
+                TgianKT = TgianKT.setDate(TgianKT.getDate() + 1);
                 TgianKT = new Date(TgianKT);
             } else {
                 TgianBD = TgianBD.setHours(TgianBD.getHours() - 7);
