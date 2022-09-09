@@ -6,6 +6,7 @@ const app = express();
 
 app.get('/', async(req, res) => {
   let data = await xuly.XuLyTKB();
+  res.writeHead(200, {'Content-Type': 'text/html'});
   res.end(json2html.render(data));
   //res.status(200).json(data);
 });
